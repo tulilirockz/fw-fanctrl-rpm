@@ -9,7 +9,7 @@
 
 Name:           fw-fanctrl
 Version:        0.0.0
-Release:        2%{gitrel}%{?dist}
+Release:        3%{gitrel}%{?dist}
 Summary:        Framework FanControl Software
 
 License:        BSD-3-Clause
@@ -17,9 +17,7 @@ URL:            https://github.com/TamtamHero/fw-fanctrl
 Source0:        https://github.com/TamtamHero/fw-fanctrl/archive/%{commit}/%{reponame}-%{shortcommit}.tar.gz
 
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  unzip
 Requires:       python3
-Requires:       libftdi
 Requires:       fw-ectool
 
 %description
@@ -28,18 +26,17 @@ Framework Fan control script
 %prep
 %autosetup -n %{name}-%{commit}
 
-%install
-mkdir -p %{buildroot}%{_libdir}/systemd/system \
-	%{buildroot}%{_bindir} \
-	%{buildroot}%{_sysconfdir}/%{name}
-
+%build
 chmod +x fanctrl.py
-cp fanctrl.py %{buildroot}%{_bindir}
-cp config.json %{buildroot}%{_sysconfdir}/%{name}
 sed -i "s/%PREFIX_DIRECTORY%/\/usr/g" services/fw-fanctrl.service
 sed -i "s/%NO_BATTERY_SENSOR_OPTION%//g" services/fw-fanctrl.service
 sed -i "s/%SYSCONF_DIRECTORY%/\/etc/g" services/fw-fanctrl.service
-cp services/fw-fanctrl.service %{buildroot}%{_libdir}/systemd/system
+
+%install
+install -Dm755 fanctrl.py %{buildroot}%{_bindir}/fanctrl.py
+install -Dm644 services/%{name}.service %{buildroot}%{_unitdir}/%{name}.service
+install -Dm755 config.json %{buildroot}%{_sysconfdir}/%{name}/config.json
+
 
 %post
 %systemd_post fw-fanctrl.service
@@ -52,7 +49,7 @@ cp services/fw-fanctrl.service %{buildroot}%{_libdir}/systemd/system
 
 %files
 %license LICENSE
-%{_libdir}/systemd/system/%{name}.service
+%{_unitdir}/%{name}.service
 %{_sysconfdir}/%{name}/config.json
 %attr(0755,root,root) %{_bindir}/fanctrl.py
 

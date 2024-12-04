@@ -9,12 +9,12 @@
 
 Name:           fw-fanctrl
 Version:        0.0.0
-Release:        5%{gitrel}%{?dist}
+Release:        6%{gitrel}%{?dist}
 Summary:        Framework FanControl Software
 
 License:        BSD-3-Clause
-URL:            https://github.com/TamtamHero/fw-fanctrl
-Source0:        https://github.com/TamtamHero/fw-fanctrl/archive/%{commit}/%{reponame}-%{shortcommit}.tar.gz
+URL:            https://github.com/TamtamHero/%{name}
+Source0:        https://github.com/TamtamHero/%{name}/archive/%{commit}/%{reponame}-%{shortcommit}.tar.gz
 
 BuildRequires:  systemd-rpm-macros
 Requires:       python3
@@ -42,13 +42,13 @@ install -Dm755 config.json %{buildroot}%{_sysconfdir}/%{name}/config.json
 
 
 %post
-%systemd_post fw-fanctrl.service
+%systemd_post %{name}.service
 
 %preun
-%systemd_preun fw-fanctrl.service
+%systemd_preun %{name}.service
 
 %postun
-%systemd_postun fw-fanctrl.service
+%systemd_postun %{name}.service
 
 %files
 %license LICENSE

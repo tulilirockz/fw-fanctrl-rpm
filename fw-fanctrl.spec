@@ -9,7 +9,7 @@
 
 Name:           fw-fanctrl
 Version:        0.0.0
-Release:        1%{gitrel}%{?dist}
+Release:        2%{gitrel}%{?dist}
 Summary:        Framework FanControl Software
 
 License:        BSD-3-Clause
@@ -20,7 +20,7 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  unzip
 Requires:       python3
 Requires:       libftdi
-Requires:       framework-ec
+Requires:       fw-ectool
 
 %description
 Framework Fan control script

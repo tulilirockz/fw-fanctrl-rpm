@@ -9,7 +9,7 @@
 
 Name:           fw-fanctrl
 Version:        0.0.0
-Release:        4%{gitrel}%{?dist}
+Release:        5%{gitrel}%{?dist}
 Summary:        Framework FanControl Software
 
 License:        BSD-3-Clause
@@ -28,15 +28,16 @@ Framework Fan control script
 
 %build
 chmod +x fanctrl.py
-sed -i "s/%PREFIX_DIRECTORY%/\/usr/g" services/fw-fanctrl.service
-sed -i "s/%PREFIX_DIRECTORY%/\/usr/g" services/system-sleep/fw-fanctrl-suspend
-sed -i "s/%NO_BATTERY_SENSOR_OPTION%//g" services/fw-fanctrl.service
-sed -i "s/%SYSCONF_DIRECTORY%/\/etc/g" services/fw-fanctrl.service
+chmod +x services/system-sleep/%{name}-suspend
+sed -i "s/%PREFIX_DIRECTORY%/\/usr/g" services/%{name}.service
+sed -i "s/%PREFIX_DIRECTORY%/\/usr/g" services/system-sleep/%{name}-suspend
+sed -i "s/%NO_BATTERY_SENSOR_OPTION%//g" services/%{name}.service
+sed -i "s/%SYSCONF_DIRECTORY%/\/etc/g" services/%{name}.service
 
 %install
 install -Dm755 fanctrl.py %{buildroot}%{_bindir}/fanctrl.py
 install -Dm644 services/system-sleep/%{name}-suspend %{buildroot}%{_libdir}/systemd/system-sleep/%{name}-suspend
-install -Dm644 services/%{name}.service %{buildroot}%{_unitdir}/%{name}.service
+install -Dm755 services/%{name}.service %{buildroot}%{_unitdir}/%{name}.service
 install -Dm755 config.json %{buildroot}%{_sysconfdir}/%{name}/config.json
 
 

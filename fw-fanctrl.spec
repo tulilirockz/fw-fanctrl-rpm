@@ -9,7 +9,7 @@
 
 Name:           fw-fanctrl
 Version:        0.0.0
-Release:        6%{gitrel}%{?dist}
+Release:        7%{gitrel}%{?dist}
 Summary:        Framework FanControl Software
 
 License:        BSD-3-Clause
@@ -36,6 +36,7 @@ sed -i "s/%SYSCONF_DIRECTORY%/\/etc/g" services/%{name}.service
 
 %install
 install -Dm755 fanctrl.py %{buildroot}%{_bindir}/fanctrl.py
+install -Dm755 fanctrl.py %{buildroot}%{_bindir}/fw-fanctrl
 install -Dm644 services/system-sleep/%{name}-suspend %{buildroot}%{_libdir}/systemd/system-sleep/%{name}-suspend
 install -Dm755 services/%{name}.service %{buildroot}%{_unitdir}/%{name}.service
 install -Dm755 config.json %{buildroot}%{_sysconfdir}/%{name}/config.json

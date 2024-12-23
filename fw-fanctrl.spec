@@ -9,7 +9,7 @@
 
 Name:           fw-fanctrl
 Version:        0.0.0
-Release:        7%{gitrel}%{?dist}
+Release:        8%{gitrel}%{?dist}
 Summary:        Framework FanControl Software
 
 License:        BSD-3-Clause
@@ -57,6 +57,7 @@ install -Dm755 config.json %{buildroot}%{_sysconfdir}/%{name}/config.json
 %{_sysconfdir}/%{name}/config.json
 %{_libdir}/systemd/system-sleep/%{name}-suspend
 %attr(0755,root,root) %{_bindir}/fanctrl.py
+%attr(0755,root,root) %{_bindir}/fw-fanctrl
 
 %changelog
 %autochangelog

@@ -11,9 +11,9 @@ COPR for Framework Fan Control utilities.
 
 You can install this by running the following snippet on a Fedora/CentOS based system:
 
-```
+```bash
 sudo dnf copr enable tulilirockz/fw-fanctrl
-sudo dnf install fw-fanctrl
+sudo dnf install fw-fanctrl # if you just want ectool you can change this to fw-ectool
 ```
 
 This should set you up with the required dependencies to get `fw-fanctrl` going, including `fw-ectool`.
